@@ -1,4 +1,4 @@
-// script.js (updated to use ExchangeRate-API)
+// script.js (updated to auto-convert on swap and highlight result)
 
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
@@ -9,12 +9,14 @@ async function convertCurrency() {
   if (isNaN(amount) || amount <= 0) {
     resultDiv.innerText = "Please enter a valid amount.";
     resultDiv.style.color = "red";
+    resultDiv.style.backgroundColor = "transparent";
     return;
   }
 
   if (from === to) {
     resultDiv.innerText = `Same currency selected. Result: ${amount.toFixed(2)} ${to}`;
     resultDiv.style.color = "black";
+    resultDiv.style.backgroundColor = "transparent";
     return;
   }
 
@@ -26,16 +28,31 @@ async function convertCurrency() {
 
     if (data.result === "success") {
       resultDiv.innerText = `${amount} ${from} = ${data.conversion_result.toFixed(2)} ${to}`;
-      resultDiv.style.color = "green";
+      resultDiv.style.color = "#ffffff";
+      resultDiv.style.backgroundColor = "#28a745";
+      resultDiv.style.padding = "0.75rem";
+      resultDiv.style.borderRadius = "6px";
+      resultDiv.style.boxShadow = "0 0 10px rgba(0, 255, 0, 0.8)";
     } else {
       resultDiv.innerText = "Failed to fetch exchange rate.";
       resultDiv.style.color = "red";
+      resultDiv.style.backgroundColor = "transparent";
     }
   } catch (error) {
     resultDiv.innerText = "Error fetching data.";
     resultDiv.style.color = "red";
+    resultDiv.style.backgroundColor = "transparent";
     console.error("Conversion Error:", error);
   }
+}
+
+function swapCurrencies() {
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+  const temp = from.value;
+  from.value = to.value;
+  to.value = temp;
+  convertCurrency();
 }
 
 // Highlight active nav link
