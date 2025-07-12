@@ -1,75 +1,37 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Currency Exchange & Recognition System</title>
+  <title>Home | Currency Exchange System</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
-  <header>
-    <h1>Currency Exchange & Recognition System</h1>
   <!-- Navigation Bar -->
-   <div class="topnav">
+  <div class="topnav">
     <div class="topnav-banner">Kwame Currency Exchange</div>
     <div class="topnav-right">
-      <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
-      <a href="about.html" class="active"><i class="fa fa-fw fa-info-circle"></i> About</a>
+      <a href="index.html" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
+      <a href="about.html"><i class="fa fa-fw fa-info-circle"></i> About</a>
       <a href="architecture.html"><i class="fa fa-fw fa-sitemap"></i> Architecture</a>
       <a href="converter.html"><i class="fa fa-fw fa-exchange-alt"></i> Converter</a>
       <a href="literature.html"><i class="fa fa-fw fa-book"></i> Literature</a>
     </div>
   </div>
-  </header>  <main>
-    <!-- Home Section -->
-    <section id="home">
-      <h2>Welcome</h2>
-      <p>This project focuses on the design and development of a currency exchange and recognition support system using image processing and artificial neural networks.</p>
-    </section><!-- About Section -->
-<section id="about">
-  <h2>About Project</h2>
-  <p>Developed by <strong>Kwame Tari Omonibo</strong> as part of B.Sc. in Computer Science at Federal University Otuoke. The system is designed to assist in automatic recognition and conversion of five currencies: NGN, USD, EUR, AUD, and INR.</p>
-</section>
 
-<!-- Converter Section -->
-<section id="converter">
-  <h2>Currency Converter</h2>
-  <div class="converter-box">
-    <input type="number" id="amount" placeholder="Enter amount" />
-    <select id="from">
-      <option value="NGN">Naira (NGN)</option>
-      <option value="USD">US Dollar (USD)</option>
-      <option value="EUR">Euro (EUR)</option>
-      <option value="AUD">Australian Dollar (AUD)</option>
-      <option value="INR">Indian Rupee (INR)</option>
-    </select>
-    <span>to</span>
-    <select id="to">
-      <option value="USD">US Dollar (USD)</option>
-      <option value="NGN">Naira (NGN)</option>
-      <option value="EUR">Euro (EUR)</option>
-      <option value="AUD">Australian Dollar (AUD)</option>
-      <option value="INR">Indian Rupee (INR)</option>
-    </select>
-    <button onclick="convertCurrency()">Convert</button>
-    <div id="result"></div>
-  </div>
-</section>
+  <!-- Page Content -->
+  <main>
+    <h1>Welcome to Kwame Currency Exchange</h1>
+    <p>This project focuses on the design and development of a currency exchange and recognition support system using image processing and artificial neural networks. It supports currencies such as the Nigerian Naira (NGN), US Dollar (USD), Euro (EUR), Australian Dollar (AUD), and Indian Rupee (INR).</p>
+  </main>
 
-<!-- Architecture Section -->
-<section id="architecture">
-  <h2>System Architecture</h2>
-  <p>The system is based on Feedforward Neural Networks (FFNN) and Time Delay Neural Networks (TDNN) models, trained using currency image data.</p>
-  <img src="assets/neural_architecture.png" alt="Neural Network Architecture" />
-</section>
-
-<!-- Literature Review Section -->
-<section id="literature">
-  <h2>Literature Review</h2>
-  <p>Several studies have shown the efficiency of neural networks in exchange rate prediction including works by Athanasios Sfetsos, Kamruzzaman, and others using backpropagation and SCG algorithms.</p>
-</section>
-
-  </main>  <footer>
+  <!-- Footer -->
+  <footer>
     <p>&copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project</p>
-  </footer>  <script src="script.js"></script></body>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
 </html>
