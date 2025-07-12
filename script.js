@@ -40,7 +40,17 @@ async function convertCurrency() {
   }
 }
 
-function toggleMenu() {
-  const nav = document.querySelector("nav ul");
-  nav.classList.toggle("show");
-}
+// Highlight active navigation link dynamically
+window.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".topnav-right a");
+  const currentPath = window.location.pathname.split("/").pop();
+
+  navLinks.forEach(link => {
+    const linkPath = link.getAttribute("href");
+    if (linkPath === currentPath || (linkPath === "index.html" && currentPath === "")) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+});
