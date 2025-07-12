@@ -1,37 +1,38 @@
 /* style.css */
 
-/* Global Styles */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Global Reset and Base Styles */
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f4f9;
   color: #333;
 }
 
-header {
-  background-color: #003366;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+/* Navigation Bar */
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #002244;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* New Top Navigation Bar */
-.topnav {
-  overflow: hidden;
-  background-color: #002244;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.topnav-banner {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+.topnav-banner img {
+  height: 40px;
 }
 
 .topnav-right {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  padding: 0.75rem 2rem;
 }
 
 .topnav-right a {
@@ -53,64 +54,48 @@ header {
   color: #fff;
 }
 
-main {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-}
-
-section {
-  margin-bottom: 3rem;
-}
-
-h1, h2 {
-  color: #003366;
-}
-
-.converter-box {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  max-width: 500px;
-  margin-top: 1rem;
-}
-
-.converter-box input,
-.converter-box select,
-.converter-box button {
-  display: block;
+/* Fullscreen Background Image with Overlayed Text */
+.page-hero {
+  background: url("assets/currency-bg.png") no-repeat center center;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
   width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  font-size: 1rem;
-}
-
-.converter-box button {
-  background-color: #003366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
-.converter-box button:hover {
-  background-color: #005599;
+.page-hero-content {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 3rem;
+  border-radius: 16px;
+  max-width: 800px;
+  font-family: 'Georgia', serif;
 }
 
-#result {
-  margin-top: 1rem;
-  font-weight: bold;
-  color: green;
+.page-hero-content h1 {
+  font-size: 3rem;
+  color: #00ccff;
+  margin-bottom: 1rem;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  margin-top: 1rem;
+.page-hero-content p {
+  font-size: 1.25rem;
+  color: #e0e0e0;
+  line-height: 1.6;
 }
 
+/* Remove hidden main block since content is now inside hero */
+main {
+  display: none;
+}
+
+/* Footer Styles */
 footer {
   text-align: center;
   padding: 1rem;
@@ -119,18 +104,4 @@ footer {
   position: relative;
   bottom: 0;
   width: 100%;
-}
-
-.topnav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #002244;
-  padding: 0.5rem 2rem;
-}
-
-.topnav-banner {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #f0f0f0;
 }

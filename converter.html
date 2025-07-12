@@ -10,7 +10,9 @@
 <body>
   <!-- Navigation Bar -->
   <div class="topnav">
-    <div class="topnav-banner">Kwame Currency Exchange</div>
+    <div class="topnav-banner">
+      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;">
+    </div>
     <div class="topnav-right">
       <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
       <a href="about.html"><i class="fa fa-fw fa-info-circle"></i> About</a>
@@ -20,31 +22,32 @@
     </div>
   </div>
 
-  <!-- Page Content -->
-  <main>
-    <h1>Currency Converter</h1>
-    <!-- Converter Interface -->
-    <div class="converter-box">
-      <input type="number" id="amount" placeholder="Enter amount">
-      <select id="from">
-        <option value="NGN">Naira (NGN)</option>
-        <option value="USD">US Dollar (USD)</option>
-        <option value="EUR">Euro (EUR)</option>
-        <option value="AUD">Australian Dollar (AUD)</option>
-        <option value="INR">Indian Rupee (INR)</option>
-      </select>
-      <span>to</span>
-      <select id="to">
-        <option value="USD">US Dollar (USD)</option>
-        <option value="NGN">Naira (NGN)</option>
-        <option value="EUR">Euro (EUR)</option>
-        <option value="AUD">Australian Dollar (AUD)</option>
-        <option value="INR">Indian Rupee (INR)</option>
-      </select>
-      <button onclick="convertCurrency()">Convert</button>
-      <div id="result"></div>
+  <!-- Background Section with Image and Interactive Content -->
+  <div class="page-hero">
+    <div class="page-hero-content">
+      <h1>Currency Converter</h1>
+      <div class="converter-box">
+        <input type="number" id="amount" placeholder="Enter amount">
+        <select id="from">
+          <option value="NGN">Naira (NGN)</option>
+          <option value="USD">US Dollar (USD)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="AUD">Australian Dollar (AUD)</option>
+          <option value="INR">Indian Rupee (INR)</option>
+        </select>
+        <span>to</span>
+        <select id="to">
+          <option value="USD">US Dollar (USD)</option>
+          <option value="NGN">Naira (NGN)</option>
+          <option value="EUR">Euro (EUR)</option>
+          <option value="AUD">Australian Dollar (AUD)</option>
+          <option value="INR">Indian Rupee (INR)</option>
+        </select>
+        <button onclick="convertCurrency()">Convert</button>
+        <div id="result"></div>
+      </div>
     </div>
-  </main>
+  </div>
 
   <!-- Footer -->
   <footer>
