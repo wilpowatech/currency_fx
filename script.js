@@ -1,6 +1,5 @@
-// script.js
+// script.js (updated to use ExchangeRate-API)
 
-// Function to convert currency using ExchangeRate-API (real-time)
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
   const from = document.getElementById("from").value;
@@ -22,7 +21,6 @@ async function convertCurrency() {
   try {
     const apiKey = "0dd5b69b9a0eeec0328d4c64";
     const url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${from}/${to}/${amount}`;
-
     const response = await fetch(url);
     const data = await response.json();
 
@@ -40,11 +38,10 @@ async function convertCurrency() {
   }
 }
 
-// Highlight active navigation link dynamically
+// Highlight active nav link
 window.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".topnav-right a");
   const currentPath = window.location.pathname.split("/").pop();
-
   navLinks.forEach(link => {
     const linkPath = link.getAttribute("href");
     if (linkPath === currentPath || (linkPath === "index.html" && currentPath === "")) {

@@ -1,107 +1,114 @@
 /* style.css */
-
-/* Global Reset and Base Styles */
-html, body {
-  height: 100%;
+body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: #f0f2f5;
+  color: #222;
 }
 
-/* Navigation Bar */
 .topnav {
+  background-color: #003366;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #002244;
-  padding: 0.5rem 2rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.topnav-banner {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #f0f0f0;
+  padding: 0 1rem;
 }
 
 .topnav-banner img {
-  height: 40px;
-}
-
-.topnav-right {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  height: auto;
+  max-height: 60px;
+  width: auto;
+  max-width: 100%;
 }
 
 .topnav-right a {
-  color: #f0f0f0;
+  float: left;
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease;
-  border-radius: 4px;
-  font-weight: bold;
+  font-size: 17px;
+  transition: background 0.3s;
 }
 
 .topnav-right a:hover {
-  background-color: #004477;
-  color: #fff;
+  background-color: #005fa3;
+  color: #ffffff;
 }
 
 .topnav-right a.active {
-  background-color: #005599;
-  color: #fff;
+  background-color: #007bff;
+  color: white;
 }
 
-/* Fullscreen Background Image with Overlayed Text */
 .page-hero {
   background: url("assets/currency-bg.png") no-repeat center center;
   background-size: cover;
-  background-position: center;
   height: 100vh;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
-  padding: 0 1rem;
-  box-sizing: border-box;
 }
 
 .page-hero-content {
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 3rem;
-  border-radius: 16px;
-  max-width: 800px;
-  font-family: 'Georgia', serif;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 10px;
+  color: white;
+  max-width: 700px;
 }
 
 .page-hero-content h1 {
-  font-size: 3rem;
-  color: #00ccff;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
 .page-hero-content p {
-  font-size: 1.25rem;
-  color: #e0e0e0;
+  font-size: 1.2rem;
   line-height: 1.6;
 }
 
-/* Remove hidden main block since content is now inside hero */
-main {
-  display: none;
-}
-
-/* Footer Styles */
 footer {
-  text-align: center;
-  padding: 1rem;
   background-color: #003366;
   color: white;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.converter-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.converter-box input,
+.converter-box select,
+.converter-box button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  width: 250px;
+  max-width: 100%;
+}
+
+.converter-box button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.converter-box button:hover {
+  background-color: #0056b3;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 10px;
 }

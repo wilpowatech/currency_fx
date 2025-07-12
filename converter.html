@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Converter | Currency Exchange System</title>
+  <title>Converter | Kwame Currency Exchange</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="ticker.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -23,7 +23,12 @@
     </div>
   </div>
 
-  <!-- Background Section with Image and Interactive Content -->
+  <!-- Live Ticker -->
+  <div class="ticker">
+    <div class="ticker-content" id="currencyTicker">Loading currency rates...</div>
+  </div>
+
+  <!-- Hero Section with Converter Box -->
   <div class="page-hero">
     <div class="page-hero-content">
       <h1>Currency Converter</h1>
@@ -55,7 +60,7 @@
     <p>&copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project</p>
   </footer>
 
-  <!-- Script -->
   <script src="script.js"></script>
+  <script src="ticker.js"></script>
 </body>
 </html>
