@@ -1,0 +1,31 @@
+/* style.css */
+
+/* Global Styles */ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
+
+header { background-color: #003366; color: white; padding: 1rem; text-align: center; }
+
+nav ul { list-style: none; padding: 0; margin: 1rem 0 0 0; display: flex; justify-content: center; gap: 2rem; }
+
+nav ul li a { text-decoration: none; color: #f0f0f0; font-weight: bold; }
+
+nav ul li a:hover { text-decoration: underline; }
+
+main { padding: 2rem; max-width: 900px; margin: auto; }
+
+section { margin-bottom: 3rem; }
+
+h1, h2 { color: #003366; }
+
+.converter-box { background-color: #ffffff; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 500px; margin-top: 1rem; }
+
+.converter-box input, .converter-box select, .converter-box button { display: block; width: 100%; margin-bottom: 1rem; padding: 0.5rem; font-size: 1rem; }
+
+.converter-box button { background-color: #003366; color: white; border: none; cursor: pointer; }
+
+.converter-box button:hover { background-color: #005599; }
+
+#result { margin-top: 1rem; font-weight: bold; color: green; }
+
+img { max-width: 100%; height: auto; margin-top: 1rem; }
+
+footer { text-align: center; padding: 1rem; background-color: #003366; color: white; position: relative; bottom: 0; width: 100%; }

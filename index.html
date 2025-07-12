@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Exchange & Recognition System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Currency Exchange & Recognition System</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#converter">Converter</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#literature">Literature Review</a></li>
+      </ul>
+    </nav>
+  </header>  <main>
+    <!-- Home Section -->
+    <section id="home">
+      <h2>Welcome</h2>
+      <p>This project focuses on the design and development of a currency exchange and recognition support system using image processing and artificial neural networks.</p>
+    </section><!-- About Section -->
+<section id="about">
+  <h2>About Project</h2>
+  <p>Developed by <strong>Kwame Tari Omonibo</strong> as part of B.Sc. in Computer Science at Federal University Otuoke. The system is designed to assist in automatic recognition and conversion of five currencies: NGN, USD, EUR, AUD, and INR.</p>
+</section>
+
+<!-- Converter Section -->
+<section id="converter">
+  <h2>Currency Converter</h2>
+  <div class="converter-box">
+    <input type="number" id="amount" placeholder="Enter amount" />
+    <select id="from">
+      <option value="NGN">Naira (NGN)</option>
+      <option value="USD">US Dollar (USD)</option>
+      <option value="EUR">Euro (EUR)</option>
+      <option value="AUD">Australian Dollar (AUD)</option>
+      <option value="INR">Indian Rupee (INR)</option>
+    </select>
+    <span>to</span>
+    <select id="to">
+      <option value="USD">US Dollar (USD)</option>
+      <option value="NGN">Naira (NGN)</option>
+      <option value="EUR">Euro (EUR)</option>
+      <option value="AUD">Australian Dollar (AUD)</option>
+      <option value="INR">Indian Rupee (INR)</option>
+    </select>
+    <button onclick="convertCurrency()">Convert</button>
+    <div id="result"></div>
+  </div>
+</section>
+
+<!-- Architecture Section -->
+<section id="architecture">
+  <h2>System Architecture</h2>
+  <p>The system is based on Feedforward Neural Networks (FFNN) and Time Delay Neural Networks (TDNN) models, trained using currency image data.</p>
+  <img src="assets/neural_architecture.png" alt="Neural Network Architecture" />
+</section>
+
+<!-- Literature Review Section -->
+<section id="literature">
+  <h2>Literature Review</h2>
+  <p>Several studies have shown the efficiency of neural networks in exchange rate prediction including works by Athanasios Sfetsos, Kamruzzaman, and others using backpropagation and SCG algorithms.</p>
+</section>
+
+  </main>  <footer>
+    <p>&copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project</p>
+  </footer>  <script src="script.js"></script></body>
+</html>
