@@ -20,73 +20,37 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-nav {
+/* New Top Navigation Bar */
+.topnav {
+  overflow: hidden;
   background-color: #002244;
-  padding: 0.5rem;
-  border-radius: 8px;
-  margin-top: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.nav-toggle {
-  display: none;
-  background-color: #003366;
-  color: white;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  margin: 0.5rem auto;
-  width: 90%;
-  max-width: 300px;
-  text-align: center;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.topnav-right {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 0.75rem 2rem;
 }
 
-nav ul li {
-  position: relative;
-}
-
-nav ul li a {
-  text-decoration: none;
+.topnav-right a {
   color: #f0f0f0;
-  font-weight: bold;
+  text-decoration: none;
   padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
   border-radius: 4px;
-  display: block;
+  font-weight: bold;
 }
 
-nav ul li a:hover {
-  background-color: #ffffff;
-  color: #003366;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
+.topnav-right a:hover {
+  background-color: #004477;
+  color: #fff;
 }
 
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: block;
-  }
-
-  nav ul {
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 0.5rem;
-  }
-
-  nav ul.show {
-    display: flex;
-  }
+.topnav-right a.active {
+  background-color: #005599;
+  color: #fff;
 }
 
 main {
