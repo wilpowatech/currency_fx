@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="ticker.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -40,6 +41,40 @@
     </div>
   </div>
 
+  <!-- Chart Section -->
+  <div style="padding: 2rem; text-align: center;">
+    <h2>7-Day Exchange Rate Chart</h2>
+    <label for="base">Base Currency:</label>
+    <select id="base">
+      <option value="USD">USD</option>
+      <option value="NGN">NGN</option>
+      <option value="EUR">EUR</option>
+      <option value="AUD">AUD</option>
+      <option value="INR">INR</option>
+    </select>
+
+    <label for="target">Target Currency:</label>
+    <select id="target">
+      <option value="NGN">NGN</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="AUD">AUD</option>
+      <option value="INR">INR</option>
+    </select>
+
+    <label for="range">Select Range:</label>
+    <select id="range">
+      <option value="7">Last 7 Days</option>
+      <option value="14">Last 14 Days</option>
+      <option value="30">Last 30 Days</option>
+    </select>
+
+    <button onclick="downloadChart()" style="margin-left: 1rem; padding: 0.5rem 1rem;">Download Chart</button>
+    <button onclick="loadExchangeChart()" style="margin: 1rem 0; padding: 0.5rem 1.2rem;">Update Chart</button>
+
+    <canvas id="exchangeChart" width="600" height="300" style="margin-top: 1rem;"></canvas>
+  </div>
+
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project</p>
@@ -47,5 +82,6 @@
 
   <script src="script.js"></script>
   <script src="ticker.js"></script>
+  <script src="chart.js"></script>
 </body>
 </html>
