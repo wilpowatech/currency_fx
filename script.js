@@ -39,3 +39,8 @@ async function convertCurrency() {
     console.error("Conversion Error:", error);
   }
 }
+
+function toggleMenu() {
+  const nav = document.querySelector("nav ul");
+  nav.classList.toggle("show");
+}
