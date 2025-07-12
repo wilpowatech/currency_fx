@@ -1,5 +1,4 @@
-// script.js (updated to auto-convert on swap and highlight result)
-
+// script.js (cleaned)
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
   const from = document.getElementById("from").value;
@@ -55,7 +54,7 @@ function swapCurrencies() {
   convertCurrency();
 }
 
-// Highlight active nav link
+// Highlight nav
 window.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".topnav-right a");
   const currentPath = window.location.pathname.split("/").pop();
@@ -68,3 +67,22 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// ✅ Only one toggle function
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  const icon = document.getElementById("theme-icon");
+  if (document.body.classList.contains("dark-mode")) {
+    icon.textContent = "🌞";
+  } else {
+    icon.textContent = "🌙";
+  }
+}
+
+
+// Refresh currency ticker
+setInterval(() => {
+  if (typeof loadCurrencyTicker === 'function') {
+    loadCurrencyTicker();
+  }
+}, 30000);

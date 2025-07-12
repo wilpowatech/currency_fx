@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | Kwame Currency Exchange</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ticker.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ticker.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <!-- Navigation Bar -->
   <div class="topnav">
     <div class="topnav-banner">
-      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;">
+      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;" />
     </div>
     <div class="topnav-right">
       <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
       <a href="converter.html"><i class="fa fa-fw fa-exchange-alt"></i> Converter</a>
       <a href="about.html" class="active"><i class="fa fa-fw fa-info-circle"></i> About</a>
+      <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <span id="theme-icon">🌙</span>
+      </button>
     </div>
   </div>
 
@@ -26,13 +29,14 @@
     <div class="ticker-content" id="currencyTicker">Loading currency rates...</div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- About Page Content -->
   <div class="page-hero">
     <div class="page-hero-content">
       <h1>About This Project</h1>
-      <p>This project was developed as a B.Sc. final year project by Kwame Tari Omonibo. It leverages machine learning and image processing to recognize and convert currencies across multiple regions, enhancing automation for banking and fintech sectors.</p>
-      <h1>System Architecture</h1>
-      <p>This system integrates feedforward and time delay neural networks. It processes currency images, classifies them, and provides real-time exchange rates using exchangerate.host APIs. The architecture diagram visually explains the system’s flow from image input to conversion output.</p>
+      <p>The Kwame Currency Exchange project is a smart financial solution built to aid recognition and conversion of currencies using computer vision and artificial intelligence techniques.</p>
+      <p>It supports five major currencies: Nigerian Naira (NGN), US Dollar (USD), Euro (EUR), Australian Dollar (AUD), and Indian Rupee (INR).</p>
+      <p>Through image processing, the system recognizes currency types and values, then connects to live exchange rate APIs to convert between currencies in real-time.</p>
+      <p>The project leverages HTML, CSS, JavaScript, and deep learning concepts such as Feedforward and Time Delay Neural Networks (TDNN).</p>
     </div>
   </div>
 

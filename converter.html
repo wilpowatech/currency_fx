@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Converter | Kwame Currency Exchange</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ticker.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ticker.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <!-- Navigation Bar -->
   <div class="topnav">
     <div class="topnav-banner">
-      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;">
+      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;" />
     </div>
     <div class="topnav-right">
       <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
       <a href="converter.html" class="active"><i class="fa fa-fw fa-exchange-alt"></i> Converter</a>
       <a href="about.html"><i class="fa fa-fw fa-info-circle"></i> About</a>
-    </div>
+      <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <span id="theme-icon">🌙</span>
+    </button>
+</div>
   </div>
 
   <!-- Live Ticker -->
@@ -26,26 +29,26 @@
     <div class="ticker-content" id="currencyTicker">Loading currency rates...</div>
   </div>
 
-  <!-- Hero Section with Converter Box -->
+  <!-- Converter Section -->
   <div class="page-hero">
     <div class="page-hero-content">
       <h1>Currency Converter</h1>
       <div class="converter-box">
-        <input type="number" id="amount" placeholder="Enter amount">
+        <input type="number" id="amount" placeholder="Enter amount" />
         <select id="from">
-          <option value="NGN">Naira (NGN)</option>
-          <option value="USD">US Dollar (USD)</option>
-          <option value="EUR">Euro (EUR)</option>
-          <option value="AUD">Australian Dollar (AUD)</option>
-          <option value="INR">Indian Rupee (INR)</option>
+          <option value="NGN">🇳🇬 Naira (NGN)</option>
+          <option value="USD">🇺🇸 US Dollar (USD)</option>
+          <option value="EUR">🇪🇺 Euro (EUR)</option>
+          <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
+          <option value="INR">🇮🇳 Indian Rupee (INR)</option>
         </select>
-        <button class="swap-btn" onclick="swapCurrencies()">⇄</button>
+        <button class="swap-btn" onclick="swapCurrencies()">&harr;</button>
         <select id="to">
-          <option value="USD">US Dollar (USD)</option>
-          <option value="NGN">Naira (NGN)</option>
-          <option value="EUR">Euro (EUR)</option>
-          <option value="AUD">Australian Dollar (AUD)</option>
-          <option value="INR">Indian Rupee (INR)</option>
+          <option value="USD">🇺🇸 US Dollar (USD)</option>
+          <option value="NGN">🇳🇬 Naira (NGN)</option>
+          <option value="EUR">🇪🇺 Euro (EUR)</option>
+          <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
+          <option value="INR">🇮🇳 Indian Rupee (INR)</option>
         </select>
         <button onclick="convertCurrency()">Convert</button>
         <div id="result"></div>

@@ -1,9 +1,15 @@
-/* style.css */
+/* style.css with dark mode + flags + toggle button */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f2f5;
   color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #eeeeee;
 }
 
 .topnav {
@@ -18,6 +24,11 @@ body {
 .topnav-banner img {
   height: 80px;
   width: auto;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
 }
 
 .topnav-right a {
@@ -40,6 +51,34 @@ body {
   background-color: #007bff;
   color: white;
 }
+
+.theme-toggle-btn {
+  background-color: #444;
+  color: #fff;
+  font-size: 20px;
+  border: 2px solid transparent;
+  padding: 6px 12px;
+  border-radius: 25px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+}
+
+/* Sun/Moon switch */
+.theme-toggle-btn span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+body.dark-mode .theme-toggle-btn span {
+  transform: rotate(180deg);
+}
+
 
 .page-hero {
   background: url("assets/currency-bg.png") no-repeat center center;
@@ -125,6 +164,12 @@ footer {
   max-width: 100%;
 }
 
+.converter-box select option {
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 25px;
+}
+
 .converter-box button {
   background-color: #007bff;
   color: white;
@@ -155,4 +200,10 @@ footer {
 #result {
   font-weight: bold;
   margin-top: 10px;
+  transition: all 0.3s;
+}
+
+body.dark-mode .topnav,
+body.dark-mode footer {
+  background-color: #1a1a1a;
 }
