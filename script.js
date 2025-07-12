@@ -1,3 +1,6 @@
+// script.js
+
+// Function to convert currency using ExchangeRate-API (real-time)
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
   const from = document.getElementById("from").value;
@@ -17,7 +20,7 @@ async function convertCurrency() {
   }
 
   try {
-    const apiKey = "0dd5b69b9a0eeec0328d4c64"; // Replace this with your actual API key
+    const apiKey = "0dd5b69b9a0eeec0328d4c64";
     const url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${from}/${to}/${amount}`;
 
     const response = await fetch(url);
@@ -33,6 +36,6 @@ async function convertCurrency() {
   } catch (error) {
     resultDiv.innerText = "Error fetching data.";
     resultDiv.style.color = "red";
-    console.error(error);
+    console.error("Conversion Error:", error);
   }
 }
