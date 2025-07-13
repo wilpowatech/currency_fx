@@ -1,4 +1,6 @@
-// ticker.js – uses open.er-api.com to load live ticker
+// ticker.js – working Unicode arrows version
+
+const previousRates = {};
 
 async function loadCurrencyTicker() {
   const pairs = [
@@ -15,20 +17,28 @@ async function loadCurrencyTicker() {
         const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
         const data = await res.json();
         const rate = data?.rates?.[to];
-        return rate
-          ? `${from}/${to}: ${rate.toFixed(2)}`
-          : `${from}/${to}: N/A`;
+
+        if (!rate) return `${from}/${to}: N/A`;
+
+        let trendArrow = "";
+        const key = `${from}_${to}`;
+        if (previousRates[key] !== undefined) {
+          if (rate > previousRates[key]) trendArrow = " ▲"; // Unicode up
+          else if (rate < previousRates[key]) trendArrow = " ▼"; // Unicode down
+        }
+
+        previousRates[key] = rate;
+        return `${from}/${to}: ${rate.toFixed(2)}${trendArrow}`;
       } catch (err) {
-        console.error(`Failed for ${from}/${to}`, err);
+        console.error(`Error loading ${from}/${to}:`, err);
         return `${from}/${to}: N/A`;
       }
     })
   );
 
   const ticker = document.getElementById("currencyTicker");
-  if (ticker) ticker.innerText = results.join(" | ");
+  if (ticker) ticker.innerHTML = results.join(" | ");
 }
 
-// Load ticker on page load and refresh every 30s
 window.addEventListener("DOMContentLoaded", loadCurrencyTicker);
 setInterval(loadCurrencyTicker, 30000);

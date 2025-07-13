@@ -4,6 +4,93 @@ let chartInstance;
 let chartTimer;
 let autoRefresh = true;
 
+async function convertCurrency() {
+  const amount = parseFloat(document.getElementById("amount").value);
+  const from = document.getElementById("from").value;
+  const to = document.getElementById("to").value;
+  const resultDiv = document.getElementById("result");
+
+  if (isNaN(amount) || amount <= 0) {
+    resultDiv.innerText = "Please enter a valid amount.";
+    resultDiv.style.color = "red";
+    resultDiv.style.backgroundColor = "transparent";
+    return;
+  }
+
+  if (from === to) {
+    resultDiv.innerText = `Same currency selected. Result: ${amount.toFixed(2)} ${to}`;
+    resultDiv.style.color = "black";
+    resultDiv.style.backgroundColor = "transparent";
+    return;
+  }
+
+  try {
+    const url = `https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amount}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.result) {
+      resultDiv.innerText = `${amount} ${from} = ${data.result.toFixed(2)} ${to}`;
+      resultDiv.style.color = "#ffffff";
+      resultDiv.style.backgroundColor = "#28a745";
+      resultDiv.style.padding = "0.75rem";
+      resultDiv.style.borderRadius = "6px";
+      resultDiv.style.boxShadow = "0 0 10px rgba(0, 255, 0, 0.8)";
+    } else {
+      resultDiv.innerText = "Failed to fetch exchange rate.";
+      resultDiv.style.color = "red";
+      resultDiv.style.backgroundColor = "transparent";
+    }
+  } catch (error) {
+    resultDiv.innerText = "Error fetching data.";
+    resultDiv.style.color = "red";
+    resultDiv.style.backgroundColor = "transparent";
+    console.error("Conversion Error:", error);
+  }
+}
+
+function swapCurrencies() {
+  const from = document.getElementById("from");
+  const to = document.getElementById("to");
+  const temp = from.value;
+  from.value = to.value;
+  to.value = temp;
+  convertCurrency();
+}
+
+// Highlight nav
+window.addEventListener("DOMContentLoaded", () => {
+  const navLinks = document.querySelectorAll(".topnav-right a");
+  const currentPath = window.location.pathname.split("/").pop();
+  navLinks.forEach(link => {
+    const linkPath = link.getAttribute("href");
+    if (linkPath === currentPath || (linkPath === "index.html" && currentPath === "")) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+});
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  const icon = document.getElementById("theme-icon");
+  if (icon) {
+    icon.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
+  }
+}
+
+setInterval(() => {
+  if (typeof loadCurrencyTicker === 'function') {
+    loadCurrencyTicker();
+  }
+}, 30000);
+
+// Rest of chart functions stay intact...
+
+let chartInstance;
+let chartTimer;
+
 async function loadExchangeChart() {
   const base = document.getElementById("base").value;
   const target = document.getElementById("target").value;
@@ -71,7 +158,6 @@ async function loadExchangeChart() {
   });
 }
 
-// Load once on page load
 window.addEventListener("DOMContentLoaded", () => {
   loadExchangeChart();
   chartTimer = setInterval(() => {
@@ -79,7 +165,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 60000);
 });
 
-// Download chart as PNG
 function downloadChart() {
   if (!chartInstance) return;
   const link = document.createElement('a');
@@ -88,7 +173,6 @@ function downloadChart() {
   link.click();
 }
 
-// Export data as CSV
 function exportCSV() {
   const base = document.getElementById("base").value;
   const target = document.getElementById("target").value;
@@ -114,7 +198,6 @@ function exportCSV() {
   document.body.removeChild(link);
 }
 
-// Toggle auto-refresh
 function toggleAutoRefresh(btn) {
   autoRefresh = !autoRefresh;
   btn.textContent = autoRefresh ? "⏳ Auto Refresh: ON" : "⏸️ Auto Refresh: OFF";
