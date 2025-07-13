@@ -26,5 +26,15 @@ body.dark-mode .ticker {
   color: #0f0;
 }
 
-.ticker .up { color: limegreen; }
-.ticker .down { color: red; }
+/* Ticker arrow coloring */
+.ticker .up {
+  color: limegreen;
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+}
+
+.ticker .down {
+  color: red;
+  font-weight: bold;
+  font-family: system-ui, sans-serif;
+}
