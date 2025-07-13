@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>7-Day Exchange Rate Chart</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    select, button {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    canvas {
+      max-width: 100%;
+    }
+    #error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>7-Day Exchange Rate Chart</h1>
+
+  <div class="controls">
+    <label>
+      Base:
+      <select id="base">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="NGN">NGN</option>
+      </select>
+    </label>
+
+    <label>
+      Target:
+      <select id="target">
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option>
+        <option value="NGN">NGN</option>
+      </select>
+    </label>
+
+    <button onclick="loadExchangeChart()">Update Chart</button>
+  </div>
+
+  <canvas id="chartCanvas" width="600" height="300"></canvas>
+  <div id="error"></div>
+
+  <script>
+    const API_KEY = "W3JoiwBPaacwKiA86OWTwXu8GbftQoMu";
+
+    async function loadExchangeChart() {
+      const base = document.getElementById("base").value;
+      const target = document.getElementById("target").value;
+      const endDate = new Date();
+      const startDate = new Date();
+      startDate.setDate(endDate.getDate() - 6);
+
+      const formatDate = date => date.toISOString().split("T")[0];
+      const startStr = formatDate(startDate);
+      const endStr = formatDate(endDate);
+
+      const url = `https://api.apilayer.com/exchangerates_data/timeseries?start_date=${startStr}&end_date=${endStr}&base=${base}&symbols=${target}`;
+
+      try {
+        const res = await fetch(url, {
+          headers: {
+            apikey: API_KEY
+          }
+        });
+        const data = await res.json();
+        console.log("API response:", data);
+
+        if (!data.success) {
+          document.getElementById("error").textContent = "Failed to load data: " + (data.error?.info || "Unknown error");
+          return;
+        }
+
+        const labels = Object.keys(data.rates).sort();
+        const values = labels.map(date => data.rates[date][target]);
+
+        renderChart(labels, values, `${base} to ${target}`);
+        document.getElementById("error").textContent = "";
+      } catch (err) {
+        console.error("Chart error:", err);
+        document.getElementById("error").textContent = "Chart error: " + err.message;
+      }
+    }
+
+    let chartInstance;
+    function renderChart(labels, data, label) {
+      const ctx = document.getElementById("chartCanvas").getContext("2d");
+
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      chartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: label,
+            data: data,
+            fill: false,
+            borderColor: "rgba(75,192,192,1)",
+            backgroundColor: "rgba(75,192,192,0.2)",
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+
+    window.addEventListener("DOMContentLoaded", loadExchangeChart);
+  </script>
+</body>
+</html>
