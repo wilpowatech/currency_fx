@@ -1,30 +1,34 @@
-// ticker.js (using exchangerate-api.com with static rates, no arrows)
+// ticker.js – uses open.er-api.com to load live ticker
 
 async function loadCurrencyTicker() {
-  const apiKey = "0dd5b69b9a0eeec0328d4c64";
-  const pairs = ["USD/NGN", "EUR/NGN", "USD/EUR", "USD/AUD", "USD/INR"];
-  const baseURL = `https://v6.exchangerate-api.com/v6/${apiKey}/pair`;
+  const pairs = [
+    ["USD", "NGN"],
+    ["EUR", "NGN"],
+    ["USD", "EUR"],
+    ["USD", "AUD"],
+    ["USD", "INR"]
+  ];
 
   const results = await Promise.all(
-    pairs.map(async pair => {
-      const [from, to] = pair.split("/");
+    pairs.map(async ([from, to]) => {
       try {
-        const response = await fetch(`${baseURL}/${from}/${to}`);
-        const data = await response.json();
-
-        if (data.result === "success") {
-          return `${from}/${to}: ${data.conversion_rate.toFixed(2)}`;
-        } else {
-          return `${from}/${to}: N/A`;
-        }
-      } catch (error) {
-        console.error(`${from}/${to} error:`, error);
+        const res = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+        const data = await res.json();
+        const rate = data?.rates?.[to];
+        return rate
+          ? `${from}/${to}: ${rate.toFixed(2)}`
+          : `${from}/${to}: N/A`;
+      } catch (err) {
+        console.error(`Failed for ${from}/${to}`, err);
         return `${from}/${to}: N/A`;
       }
     })
   );
 
-  document.getElementById("currencyTicker").innerHTML = results.join(" | ");
+  const ticker = document.getElementById("currencyTicker");
+  if (ticker) ticker.innerText = results.join(" | ");
 }
 
-document.addEventListener("DOMContentLoaded", loadCurrencyTicker);
+// Load ticker on page load and refresh every 30s
+window.addEventListener("DOMContentLoaded", loadCurrencyTicker);
+setInterval(loadCurrencyTicker, 30000);

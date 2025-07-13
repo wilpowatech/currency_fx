@@ -1,4 +1,5 @@
-// script.js (cleaned)
+// script.js – uses open.er-api.com for currency conversion (no API key)
+
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
   const from = document.getElementById("from").value;
@@ -13,27 +14,27 @@ async function convertCurrency() {
   }
 
   if (from === to) {
-    resultDiv.innerText = `Same currency selected. Result: ${amount.toFixed(2)} ${to}`;
+    resultDiv.innerText = `${amount.toFixed(2)} ${from} = ${amount.toFixed(2)} ${to}`;
     resultDiv.style.color = "black";
     resultDiv.style.backgroundColor = "transparent";
     return;
   }
 
   try {
-    const apiKey = "0dd5b69b9a0eeec0328d4c64";
-    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/${from}/${to}/${amount}`;
-    const response = await fetch(url);
+    const response = await fetch(`https://open.er-api.com/v6/latest/${from}`);
     const data = await response.json();
+    const rate = data?.rates?.[to];
 
-    if (data.result === "success") {
-      resultDiv.innerText = `${amount} ${from} = ${data.conversion_result.toFixed(2)} ${to}`;
+    if (rate) {
+      const result = amount * rate;
+      resultDiv.innerText = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
       resultDiv.style.color = "#ffffff";
       resultDiv.style.backgroundColor = "#28a745";
       resultDiv.style.padding = "0.75rem";
       resultDiv.style.borderRadius = "6px";
       resultDiv.style.boxShadow = "0 0 10px rgba(0, 255, 0, 0.8)";
     } else {
-      resultDiv.innerText = "Failed to fetch exchange rate.";
+      resultDiv.innerText = "Conversion failed.";
       resultDiv.style.color = "red";
       resultDiv.style.backgroundColor = "transparent";
     }
@@ -51,10 +52,10 @@ function swapCurrencies() {
   const temp = from.value;
   from.value = to.value;
   to.value = temp;
-  convertCurrency();
+  convertCurrency(); // auto-convert on swap
 }
 
-// Highlight nav
+// Highlight active navigation link
 window.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".topnav-right a");
   const currentPath = window.location.pathname.split("/").pop();
@@ -68,21 +69,11 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ✅ Only one toggle function
+// Dark mode toggle with 🌙/🌞 icon
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
   const icon = document.getElementById("theme-icon");
-  if (document.body.classList.contains("dark-mode")) {
-    icon.textContent = "🌞";
-  } else {
-    icon.textContent = "🌙";
+  if (icon) {
+    icon.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
   }
 }
-
-
-// Refresh currency ticker
-setInterval(() => {
-  if (typeof loadCurrencyTicker === 'function') {
-    loadCurrencyTicker();
-  }
-}, 30000);

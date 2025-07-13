@@ -1,7 +1,8 @@
-// chart.js
+// chart.js (using exchangerate.host - free, no API key)
 
 let chartInstance;
 let chartTimer;
+let autoRefresh = true;
 
 async function loadExchangeChart() {
   const base = document.getElementById("base").value;
@@ -24,11 +25,13 @@ async function loadExchangeChart() {
     const formatted = date.toISOString().split('T')[0];
     labels.push(formatted);
 
-    const res = await fetch(`https://api.exchangerate.host/${formatted}?base=${base}&symbols=${targets.join(',')}`);
+    const url = `https://api.exchangerate.host/${formatted}?base=${base}&symbols=${targets.join(',')}`;
+    const res = await fetch(url);
     const data = await res.json();
+
     targets.forEach(symbol => {
       if (!dataMap.has(symbol)) dataMap.set(symbol, []);
-      dataMap.get(symbol).push(data.rates[symbol]);
+      dataMap.get(symbol).push(data?.rates?.[symbol] ?? null);
     });
   }
 
@@ -39,9 +42,15 @@ async function loadExchangeChart() {
       data: values,
       borderColor: colors[index % colors.length],
       backgroundColor: colors[index % colors.length] + "33",
-      tension: 0.3
+      tension: 0.3,
+      spanGaps: true
     };
   });
+
+  if (!datasets.length || datasets.every(d => d.data.every(v => v === null))) {
+    console.warn("No valid exchange rate data.");
+    return;
+  }
 
   const ctx = document.getElementById("exchangeChart").getContext("2d");
   if (chartInstance) chartInstance.destroy();
@@ -51,6 +60,10 @@ async function loadExchangeChart() {
     data: { labels, datasets },
     options: {
       responsive: true,
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: { mode: 'index', intersect: false }
+      },
       scales: {
         y: { beginAtZero: false }
       }
@@ -61,7 +74,9 @@ async function loadExchangeChart() {
 // Load once on page load
 window.addEventListener("DOMContentLoaded", () => {
   loadExchangeChart();
-  chartTimer = setInterval(loadExchangeChart, 60000); // Refresh every 60 seconds
+  chartTimer = setInterval(() => {
+    if (autoRefresh) loadExchangeChart();
+  }, 60000);
 });
 
 // Download chart as PNG
@@ -77,7 +92,6 @@ function downloadChart() {
 function exportCSV() {
   const base = document.getElementById("base").value;
   const target = document.getElementById("target").value;
-  const range = parseInt(document.getElementById("range").value);
   const labels = chartInstance.data.labels;
   const csvHeader = ["Date", ...chartInstance.data.datasets.map(d => d.label)].join(",");
   const csvRows = [csvHeader];
@@ -98,4 +112,10 @@ function exportCSV() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+// Toggle auto-refresh
+function toggleAutoRefresh(btn) {
+  autoRefresh = !autoRefresh;
+  btn.textContent = autoRefresh ? "⏳ Auto Refresh: ON" : "⏸️ Auto Refresh: OFF";
 }
