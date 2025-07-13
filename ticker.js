@@ -23,8 +23,8 @@ async function loadCurrencyTicker() {
         let trendArrow = "";
         const key = `${from}_${to}`;
         if (previousRates[key] !== undefined) {
-          if (rate > previousRates[key]) trendArrow = " ▲"; // Unicode up
-          else if (rate < previousRates[key]) trendArrow = " ▼"; // Unicode down
+          if (rate > previousRates[key]) trendArrow = " <span class='up'>▲</span>";
+          else if (rate < previousRates[key]) trendArrow = " <span class='down'>▼</span>";
         }
 
         previousRates[key] = rate;

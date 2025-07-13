@@ -25,3 +25,6 @@ body.dark-mode .ticker {
   background-color: #111;
   color: #0f0;
 }
+
+.ticker .up { color: limegreen; }
+.ticker .down { color: red; }
