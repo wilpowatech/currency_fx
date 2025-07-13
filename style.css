@@ -79,7 +79,6 @@ body.dark-mode .theme-toggle-btn span {
   transform: rotate(180deg);
 }
 
-
 .page-hero {
   background: url("assets/currency-bg.png") no-repeat center center;
   background-size: cover;
@@ -203,7 +202,19 @@ footer {
   transition: all 0.3s;
 }
 
+/* Dark mode overrides */
 body.dark-mode .topnav,
 body.dark-mode footer {
   background-color: #1a1a1a;
+}
+
+/* ========== Fix dropdown arrows in Firefox and add custom arrow ========== */
+.converter-box select {
+  appearance: auto;
+  -moz-appearance: auto;
+  -webkit-appearance: auto;
+
+  background: url('data:image/svg+xml;utf8,<svg fill="black" height="10" width="10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.75rem center;
+  background-size: 0.6rem auto;
+  padding-right: 2rem; /* space for arrow */
 }
