@@ -1,5 +1,6 @@
 // script.js – uses open.er-api.com for currency conversion (no API key)
 
+// ==================== Currency Conversion ====================
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
   const from = document.getElementById("from").value;
@@ -46,19 +47,21 @@ async function convertCurrency() {
   }
 }
 
+// ==================== Swap Currency ====================
 function swapCurrencies() {
   const from = document.getElementById("from");
   const to = document.getElementById("to");
   const temp = from.value;
   from.value = to.value;
   to.value = temp;
-  convertCurrency(); // auto-convert on swap
+  convertCurrency(); // Optional: auto-convert on swap
 }
 
-// Highlight active navigation link
+// ==================== Highlight Active Nav Link ====================
 window.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.querySelectorAll(".topnav-right a");
   const currentPath = window.location.pathname.split("/").pop();
+
   navLinks.forEach(link => {
     const linkPath = link.getAttribute("href");
     if (linkPath === currentPath || (linkPath === "index.html" && currentPath === "")) {
@@ -67,13 +70,22 @@ window.addEventListener("DOMContentLoaded", () => {
       link.classList.remove("active");
     }
   });
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    const icon = document.getElementById("theme-icon");
+    if (icon) icon.textContent = "🌞";
+  }
 });
 
-// Dark mode toggle with 🌙/🌞 icon
+// ==================== Dark Mode Toggle ====================
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
   const icon = document.getElementById("theme-icon");
   if (icon) {
     icon.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
   }
+  localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
