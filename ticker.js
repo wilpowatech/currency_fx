@@ -1,4 +1,4 @@
-// ticker.js – with arrow indicators and memory of previous values
+// ticker.js – clean, with arrow indicators and memory of previous values
 
 const previousRates = {};
 
@@ -20,19 +20,23 @@ async function loadCurrencyTicker() {
 
         if (!rate) return `${from}/${to}: N/A`;
 
-        let trendArrow = "";
         const key = `${from}_${to}`;
+        let trend = "";
+
         if (previousRates[key] !== undefined) {
-          if (rate > previousRates[key]) trendArrow = " <span class='up'>▲</span>";
-          else if (rate < previousRates[key]) trendArrow = " <span class='down'>▼</span>";
+          if (rate > previousRates[key]) {
+            trend = ` <span class="arrow up">▲</span>`;
+          } else if (rate < previousRates[key]) {
+            trend = ` <span class="arrow down">▼</span>`;
+          }
         }
 
         previousRates[key] = rate;
 
-        return `${from}/${to}: ${rate.toFixed(2)}${trendArrow}`;
+        return `<span class="pair">${from}/${to}: ${rate.toFixed(2)}${trend}</span>`;
       } catch (err) {
-        console.error(`Error loading ${from}/${to}:`, err);
-        return `${from}/${to}: N/A`;
+        console.error(`Error fetching ${from}/${to}:`, err);
+        return `<span class="pair">${from}/${to}: N/A</span>`;
       }
     })
   );
@@ -41,6 +45,6 @@ async function loadCurrencyTicker() {
   if (ticker) ticker.innerHTML = results.join(" | ");
 }
 
-// Initial + 30s refresh
+// Initial load and update every 30 seconds
 window.addEventListener("DOMContentLoaded", loadCurrencyTicker);
 setInterval(loadCurrencyTicker, 30000);
