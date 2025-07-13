@@ -1,4 +1,4 @@
-// ticker.js – working Unicode arrows version
+// ticker.js – with arrow indicators and memory of previous values
 
 const previousRates = {};
 
@@ -28,6 +28,7 @@ async function loadCurrencyTicker() {
         }
 
         previousRates[key] = rate;
+
         return `${from}/${to}: ${rate.toFixed(2)}${trendArrow}`;
       } catch (err) {
         console.error(`Error loading ${from}/${to}:`, err);
@@ -40,5 +41,6 @@ async function loadCurrencyTicker() {
   if (ticker) ticker.innerHTML = results.join(" | ");
 }
 
+// Initial + 30s refresh
 window.addEventListener("DOMContentLoaded", loadCurrencyTicker);
 setInterval(loadCurrencyTicker, 30000);
