@@ -79,6 +79,7 @@ body.dark-mode .theme-toggle-btn span {
   transform: rotate(180deg);
 }
 
+
 .page-hero {
   background: url("assets/currency-bg.png") no-repeat center center;
   background-size: cover;
@@ -202,7 +203,6 @@ footer {
   transition: all 0.3s;
 }
 
-/* Dark mode overrides */
 body.dark-mode .topnav,
 body.dark-mode footer {
   background-color: #1a1a1a;
