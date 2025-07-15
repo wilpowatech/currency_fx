@@ -18,7 +18,7 @@
   <!-- Navigation Bar -->
   <div class="topnav">
     <div class="topnav-banner">
-      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;" />
+      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" />
     </div>
     <div class="topnav-right">
       <a href="index.html" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
@@ -38,19 +38,37 @@
   <!-- Hero Section -->
   <div class="page-hero">
     <div class="page-hero-content">
-      <h1>Welcome to Kwame Currency Exchange</h1>
+      <h1 class="gradient-title">Welcome to Kwame Currency Exchange</h1>
       <p>This project focuses on designing a currency recognition and conversion support system using image processing and neural networks. Supported currencies: NGN, USD, EUR, AUD, INR.</p>
       <p>This section reviews prior work and technologies used in currency detection, classification, and exchange. It explores techniques involving convolutional neural networks, real-time processing APIs, and OCR integration to understand advancements in financial tech applications.</p>
       <p>This system integrates feedforward and time delay neural networks. It processes currency images, classifies them, and provides real-time exchange rates using exchangerate.host APIs. The architecture diagram visually explains the system’s flow from image input to conversion output.</p>
       <a href="converter.html" class="convert-now-btn">Convert Now</a>
+
+      <!-- Exchange Rate Table -->
+      <div style="margin-top: 2rem;">
+        <h2 style="text-align:center;">Lagos Parallel Market Rates</h2>
+        <div style="text-align:center; color: red; font-weight: bold;">⭐ SUBSCRIBERS ONLY | Quotes: *morning **midday ***evening</div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>🇺🇸 USD</th>
+              <th>🇬🇧 GBP</th>
+              <th>🇪🇺 EUR</th>
+            </tr>
+          </thead>
+          <tbody id="fx-table">
+            <!-- Filled dynamically -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
   <!-- Chart Section -->
   <div style="padding: 2rem; text-align: center;">
     <h2>7-Day Exchange Rate Chart</h2>
-
-    <!-- Dropdowns and Buttons Container -->
     <div class="chart-controls">
       <label for="base">Base Currency:</label>
       <select id="base">
@@ -81,7 +99,6 @@
       <button onclick="loadExchangeChart()">Update Chart</button>
     </div>
 
-    <!-- Chart Canvas -->
     <canvas id="exchangeChart" width="600" height="300" style="margin-top: 1rem;"></canvas>
   </div>
 
@@ -91,8 +108,8 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="script.js"></script>     <!-- Theme toggle, currency conversion, nav highlighting -->
-  <script src="ticker.js"></script>     <!-- Live ticker with arrow indicators -->
-  <script src="chart.js"></script>      <!-- Exchange rate chart logic -->
+  <script src="script.js"></script>
+  <script src="ticker.js"></script>
+  <script src="chart.js"></script>
 </body>
 </html>

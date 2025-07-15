@@ -1,5 +1,3 @@
-// script.js – uses open.er-api.com for currency conversion (no API key)
-
 // ==================== Currency Conversion ====================
 async function convertCurrency() {
   const amount = parseFloat(document.getElementById("amount").value);
@@ -54,7 +52,7 @@ function swapCurrencies() {
   const temp = from.value;
   from.value = to.value;
   to.value = temp;
-  convertCurrency(); // Optional: auto-convert on swap
+  convertCurrency();
 }
 
 // ==================== Highlight Active Nav Link ====================
@@ -78,6 +76,9 @@ window.addEventListener("DOMContentLoaded", () => {
     const icon = document.getElementById("theme-icon");
     if (icon) icon.textContent = "🌞";
   }
+
+  // Load exchange table on page load
+  loadExchangeTable();
 });
 
 // ==================== Dark Mode Toggle ====================
@@ -88,4 +89,40 @@ function toggleDarkMode() {
     icon.textContent = document.body.classList.contains("dark-mode") ? "🌞" : "🌙";
   }
   localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+}
+
+// ==================== FX Table – Live Parallel Market Rates ====================
+async function loadExchangeTable() {
+  const fxTable = document.getElementById("fx-table");
+  if (!fxTable) return;
+
+  try {
+    // You can update this list to fetch for NGN from others
+    const currencies = ["USD", "GBP", "EUR"];
+    const base = "NGN";
+
+    const today = new Date().toISOString().slice(0, 10);
+    const response = await fetch(`https://api.exchangerate.host/latest?base=${base}&symbols=${currencies.join(",")}`);
+    const data = await response.json();
+
+    if (!data || !data.rates) throw new Error("Invalid response from API");
+
+    let html = `<tr><td>${today}</td>`;
+    currencies.forEach(symbol => {
+      const sell = (1 / data.rates[symbol]).toFixed(2);
+      const buy = (sell * 0.98).toFixed(2); // Simulate buy rate slightly lower
+
+      html += `
+        <td>
+          <span style="color: green; font-weight: bold;">Buy: ${buy}</span><br />
+          <span style="color: red; font-weight: bold;">Sell: ${sell}</span>
+        </td>`;
+    });
+    html += "</tr>";
+
+    fxTable.innerHTML = html;
+  } catch (error) {
+    console.error("Failed to load exchange table:", error);
+    fxTable.innerHTML = `<tr><td colspan="4" style="color: red;">Error fetching exchange rates.</td></tr>`;
+  }
 }
