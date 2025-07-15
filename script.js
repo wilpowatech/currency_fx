@@ -20,7 +20,7 @@ async function convertCurrency() {
   }
 
   try {
-    const response = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+    const response = await fetch(`https://api.exchangerate.host/latest?base=${from}&symbols=${to}`);
     const data = await response.json();
     const rate = data?.rates?.[to];
 
@@ -52,7 +52,7 @@ function swapCurrencies() {
   const temp = from.value;
   from.value = to.value;
   to.value = temp;
-  convertCurrency(); // auto-convert after swap
+  convertCurrency();
 }
 
 // ==================== Highlight Active Nav Link ====================
@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (icon) icon.textContent = "🌞";
   }
 
-  // Load exchange rate table
+  // Load FX Table
   loadExchangeTable();
 });
 
@@ -91,7 +91,7 @@ function toggleDarkMode() {
   localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
 
-// ==================== FX Table – Parallel Market Rates ====================
+// ==================== FX Table (Buy/Sell) ====================
 async function loadExchangeTable() {
   const fxTable = document.getElementById("fx-table");
   if (!fxTable) return;
@@ -100,20 +100,17 @@ async function loadExchangeTable() {
     const currencies = ["USD", "GBP", "EUR"];
     const url = `https://api.exchangerate.host/latest?base=NGN&symbols=${currencies.join(",")}`;
     const response = await fetch(url);
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
 
-    if (!data || !data.rates) throw new Error("No rates returned");
+    if (!data || !data.rates) throw new Error("Rates not available");
 
     const today = data.date;
     let html = `<tr><td>${today}</td>`;
 
     currencies.forEach(symbol => {
       const rate = data.rates[symbol];
-      if (!rate) throw new Error(`Missing rate for ${symbol}`);
-      const sell = (1 / rate).toFixed(2);       // e.g. 1 USD = X NGN
-      const buy = (sell * 0.98).toFixed(2);      // simulate buy rate lower
+      const sell = (1 / rate).toFixed(2);      // NGN → USD (sell NGN)
+      const buy = (sell * 0.98).toFixed(2);     // Buy NGN slightly lower
 
       html += `
         <td>
