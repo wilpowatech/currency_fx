@@ -52,7 +52,7 @@ function swapCurrencies() {
   const temp = from.value;
   from.value = to.value;
   to.value = temp;
-  convertCurrency(); // Auto-convert after swapping
+  convertCurrency(); // auto-convert after swap
 }
 
 // ==================== Highlight Active Nav Link ====================
@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (icon) icon.textContent = "🌞";
   }
 
-  // Load parallel market exchange table
+  // Load exchange rate table
   loadExchangeTable();
 });
 
@@ -98,21 +98,26 @@ async function loadExchangeTable() {
 
   try {
     const currencies = ["USD", "GBP", "EUR"];
-    const response = await fetch("https://api.exchangerate.host/latest?base=NGN&symbols=USD,GBP,EUR");
+    const url = `https://api.exchangerate.host/latest?base=NGN&symbols=${currencies.join(",")}`;
+    const response = await fetch(url);
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
 
-    if (!data || !data.rates) throw new Error("Invalid API response");
+    if (!data || !data.rates) throw new Error("No rates returned");
 
     const today = data.date;
     let html = `<tr><td>${today}</td>`;
 
     currencies.forEach(symbol => {
-      const sell = (1 / data.rates[symbol]).toFixed(2);        // Sell at market rate
-      const buy = (sell * 0.98).toFixed(2);                     // Buy slightly lower (simulate spread)
+      const rate = data.rates[symbol];
+      if (!rate) throw new Error(`Missing rate for ${symbol}`);
+      const sell = (1 / rate).toFixed(2);       // e.g. 1 USD = X NGN
+      const buy = (sell * 0.98).toFixed(2);      // simulate buy rate lower
 
       html += `
         <td>
-          <span style="color: green; font-weight: bold;">Buy: ${buy}</span><br />
+          <span style="color: green; font-weight: bold;">Buy: ${buy}</span><br/>
           <span style="color: red; font-weight: bold;">Sell: ${sell}</span>
         </td>`;
     });
@@ -121,12 +126,10 @@ async function loadExchangeTable() {
     fxTable.innerHTML = html;
 
   } catch (error) {
-    console.error("Failed to load exchange table:", error);
+    console.error("FX Error:", error);
     fxTable.innerHTML = `
-      <tr>
-        <td colspan="4" style="color: red; font-weight: bold;">
-          Error fetching exchange rates.
-        </td>
-      </tr>`;
+      <tr><td colspan="4" style="color: red; font-weight: bold;">
+        Error fetching exchange rates.<br/>${error.message}
+      </td></tr>`;
   }
 }
