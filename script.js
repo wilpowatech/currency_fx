@@ -52,7 +52,7 @@ function swapCurrencies() {
   const temp = from.value;
   from.value = to.value;
   to.value = temp;
-  convertCurrency();
+  convertCurrency(); // Auto-convert after swapping
 }
 
 // ==================== Highlight Active Nav Link ====================
@@ -77,7 +77,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (icon) icon.textContent = "🌞";
   }
 
-  // Load exchange table on page load
+  // Load parallel market exchange table
   loadExchangeTable();
 });
 
@@ -91,26 +91,24 @@ function toggleDarkMode() {
   localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 }
 
-// ==================== FX Table – Live Parallel Market Rates ====================
+// ==================== FX Table – Parallel Market Rates ====================
 async function loadExchangeTable() {
   const fxTable = document.getElementById("fx-table");
   if (!fxTable) return;
 
   try {
-    // You can update this list to fetch for NGN from others
     const currencies = ["USD", "GBP", "EUR"];
-    const base = "NGN";
-
-    const today = new Date().toISOString().slice(0, 10);
-    const response = await fetch(`https://api.exchangerate.host/latest?base=${base}&symbols=${currencies.join(",")}`);
+    const response = await fetch("https://api.exchangerate.host/latest?base=NGN&symbols=USD,GBP,EUR");
     const data = await response.json();
 
-    if (!data || !data.rates) throw new Error("Invalid response from API");
+    if (!data || !data.rates) throw new Error("Invalid API response");
 
+    const today = data.date;
     let html = `<tr><td>${today}</td>`;
+
     currencies.forEach(symbol => {
-      const sell = (1 / data.rates[symbol]).toFixed(2);
-      const buy = (sell * 0.98).toFixed(2); // Simulate buy rate slightly lower
+      const sell = (1 / data.rates[symbol]).toFixed(2);        // Sell at market rate
+      const buy = (sell * 0.98).toFixed(2);                     // Buy slightly lower (simulate spread)
 
       html += `
         <td>
@@ -118,11 +116,17 @@ async function loadExchangeTable() {
           <span style="color: red; font-weight: bold;">Sell: ${sell}</span>
         </td>`;
     });
-    html += "</tr>";
 
+    html += "</tr>";
     fxTable.innerHTML = html;
+
   } catch (error) {
     console.error("Failed to load exchange table:", error);
-    fxTable.innerHTML = `<tr><td colspan="4" style="color: red;">Error fetching exchange rates.</td></tr>`;
+    fxTable.innerHTML = `
+      <tr>
+        <td colspan="4" style="color: red; font-weight: bold;">
+          Error fetching exchange rates.
+        </td>
+      </tr>`;
   }
 }
