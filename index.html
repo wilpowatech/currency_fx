@@ -1,115 +1,95 @@
+<!-- Save this as index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home | Kwame Currency Exchange</title>
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ticker.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-
-  <!-- Navigation Bar -->
-  <div class="topnav">
-    <div class="topnav-banner">
-      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" />
-    </div>
-    <div class="topnav-right">
-      <a href="index.html" class="active"><i class="fa fa-fw fa-home"></i> Home</a>
-      <a href="converter.html"><i class="fa fa-fw fa-exchange-alt"></i> Converter</a>
-      <a href="about.html"><i class="fa fa-fw fa-info-circle"></i> About</a>
-      <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
-        <span id="theme-icon">🌙</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Live Ticker -->
-  <div class="ticker">
-    <div class="ticker-content" id="currencyTicker">Loading currency rates...</div>
-  </div>
-
-  <!-- Hero Section -->
-  <div class="page-hero">
-    <div class="page-hero-content">
-      <h1 class="gradient-title">Welcome to Kwame Currency Exchange</h1>
-      <p>This project focuses on designing a currency recognition and conversion support system using image processing and neural networks. Supported currencies: NGN, USD, EUR, AUD, INR.</p>
-      <p>This section reviews prior work and technologies used in currency detection, classification, and exchange. It explores techniques involving convolutional neural networks, real-time processing APIs, and OCR integration to understand advancements in financial tech applications.</p>
-      <p>This system integrates feedforward and time delay neural networks. It processes currency images, classifies them, and provides real-time exchange rates using exchangerate.host APIs. The architecture diagram visually explains the system’s flow from image input to conversion output.</p>
-      <a href="converter.html" class="convert-now-btn">Convert Now</a>
-
-      <!-- Exchange Rate Table -->
-      <div style="margin-top: 2rem;">
-        <h2 style="text-align:center;">Lagos Parallel Market Rates</h2>
-        <div style="text-align:center; color: red; font-weight: bold;">⭐ SUBSCRIBERS ONLY | Quotes: *morning **midday ***evening</div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>🇺🇸 USD</th>
-              <th>🇬🇧 GBP</th>
-              <th>🇪🇺 EUR</th>
-            </tr>
-          </thead>
-          <tbody id="fx-table">
-            <!-- Filled dynamically -->
-          </tbody>
-        </table>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Kwame Currency Exchange</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ticker.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav">
+      <div class="topnav-banner">
+        <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" />
+      </div>
+      <div class="topnav-right">
+        <a href="index.html" class="active"
+          ><i class="fa fa-fw fa-home"></i> Home</a
+        >
+        <a href="converter.html"
+          ><i class="fa fa-fw fa-exchange-alt"></i> Converter</a
+        >
+        <a href="about.html"><i class="fa fa-fw fa-info-circle"></i> About</a>
+        <button
+          class="theme-toggle-btn"
+          onclick="toggleDarkMode()"
+          title="Toggle Dark Mode"
+        >
+          <span id="theme-icon">🌙</span>
+        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Chart Section -->
-  <div style="padding: 2rem; text-align: center;">
-    <h2>7-Day Exchange Rate Chart</h2>
-    <div class="chart-controls">
-      <label for="base">Base Currency:</label>
-      <select id="base">
-        <option value="USD">USD</option>
-        <option value="NGN">NGN</option>
-        <option value="EUR">EUR</option>
-        <option value="AUD">AUD</option>
-        <option value="INR">INR</option>
-      </select>
-
-      <label for="target">Target Currency:</label>
-      <select id="target">
-        <option value="NGN">NGN</option>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="AUD">AUD</option>
-        <option value="INR">INR</option>
-      </select>
-
-      <label for="range">Select Range:</label>
-      <select id="range">
-        <option value="7">Last 7 Days</option>
-        <option value="14">Last 14 Days</option>
-        <option value="30">Last 30 Days</option>
-      </select>
-
-      <button onclick="downloadChart()">Download Chart</button>
-      <button onclick="loadExchangeChart()">Update Chart</button>
+    <!-- Live Ticker -->
+    <div class="ticker">
+      <div class="ticker-content" id="currencyTicker">
+        Loading currency rates...
+      </div>
     </div>
 
-    <canvas id="exchangeChart" width="600" height="300" style="margin-top: 1rem;"></canvas>
-  </div>
+    <!-- Hero Section -->
+    <div class="page-hero">
+      <div class="page-hero-content">
+        <h1 class="gradient-title">Welcome to Kwame Currency Exchange</h1>
+        <p>
+          This project focuses on designing a currency recognition and
+          conversion support system using image processing and neural networks.
+        </p>
+        <p>Supported currencies: NGN, USD, EUR, AUD, INR.</p>
+        <p>
+          This system integrates feedforward and time delay neural networks. It
+          processes currency images, classifies them, and provides real-time
+          exchange rates using exchangerate.host APIs.
+        </p>
+        <a href="converter.html" class="convert-now-btn">Convert Now</a>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project</p>
-  </footer>
+        <div style="margin-top: 2rem">
+          <h2 style="text-align: center">Lagos Parallel Market Rates</h2>
+          <div style="text-align: center; color: red; font-weight: bold">
+            ⭐ SUBSCRIBERS ONLY | Quotes: *morning **midday ***evening
+          </div>
 
-  <!-- Scripts -->
-  <script src="script.js"></script>
-  <script src="ticker.js"></script>
-  <script src="chart.js"></script>
-</body>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>🇺🇸 USD</th>
+                <th>🇬🇧 GBP</th>
+                <th>🇪🇺 EUR</th>
+              </tr>
+            </thead>
+            <tbody id="fx-table">
+              <!-- JS will populate here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="ticker.js"></script>
+    <script src="rateTable.js"></script>
+  </body>
 </html>

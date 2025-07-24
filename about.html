@@ -1,51 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | Kwame Currency Exchange</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="ticker.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-</head>
-<body>
-  <!-- Navigation Bar -->
-  <div class="topnav">
-    <div class="topnav-banner">
-      <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" style="height: 40px;" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Kwame Currency Exchange</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ticker.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav">
+      <div class="topnav-banner">
+        <img src="assets/logo.png" alt="Kwame Currency Exchange Logo" />
+      </div>
+      <div class="topnav-right">
+        <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="converter.html"
+          ><i class="fa fa-fw fa-exchange-alt"></i> Converter</a
+        >
+        <a href="about.html" class="active"
+          ><i class="fa fa-fw fa-info-circle"></i> About</a
+        >
+        <button
+          class="theme-toggle-btn"
+          onclick="toggleDarkMode()"
+          title="Toggle Dark Mode"
+        >
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
     </div>
-    <div class="topnav-right">
-      <a href="index.html"><i class="fa fa-fw fa-home"></i> Home</a>
-      <a href="converter.html"><i class="fa fa-fw fa-exchange-alt"></i> Converter</a>
-      <a href="about.html" class="active"><i class="fa fa-fw fa-info-circle"></i> About</a>
-      <button class="theme-toggle-btn" onclick="toggleDarkMode()" title="Toggle Dark Mode">
-        <span id="theme-icon">🌙</span>
-      </button>
+
+    <!-- Live Ticker -->
+    <div class="ticker">
+      <div class="ticker-content" id="currencyTicker">
+        Loading currency rates...
+      </div>
     </div>
-  </div>
 
-  <!-- Live Ticker -->
-  <div class="ticker">
-    <div class="ticker-content" id="currencyTicker">Loading currency rates...</div>
-  </div>
-
-  <!-- About Page Content -->
-  <div class="page-hero">
-    <div class="page-hero-content">
-      <h1>About This Project</h1>
-      <p>The Kwame Currency Exchange project is a smart financial solution built to aid recognition and conversion of currencies using computer vision and artificial intelligence techniques.</p>
-      <p>It supports five major currencies: Nigerian Naira (NGN), US Dollar (USD), Euro (EUR), Australian Dollar (AUD), and Indian Rupee (INR).</p>
-      <p>Through image processing, the system recognizes currency types and values, then connects to live exchange rate APIs to convert between currencies in real-time.</p>
-      <p>The project leverages HTML, CSS, JavaScript, and deep learning concepts such as Feedforward and Time Delay Neural Networks (TDNN).</p>
+    <!-- About Section -->
+    <div class="page-hero">
+      <div class="page-hero-content">
+        <h1>About This Project</h1>
+        <p>
+          <strong>Kwame Currency Exchange</strong> is a smart web-based tool
+          built to simplify and automate currency recognition and real-time
+          exchange rate conversion.
+        </p>
+        <p>
+          This system combines computer vision and neural networks to identify
+          physical currency notes and instantly display their value in the
+          desired target currency.
+        </p>
+        <p>
+          It is designed for use in educational institutions, forex bureaus,
+          mobile agents, and fintech developers who require lightweight,
+          real-time currency solutions using modern APIs.
+        </p>
+        <p>
+          Real-time rates are powered by
+          <a
+            href="https://exchangerate.host"
+            target="_blank"
+            style="color: #00ffff"
+            >exchangerate.host</a
+          >. This project supports NGN, USD, EUR, AUD, INR, and GBP.
+        </p>
+        <p>
+          This application is part of the final year thesis of
+          <strong>Kwame Tari Omonibo</strong>, and integrates frontend
+          development with external APIs, UI design principles, and dynamic data
+          visualization.
+        </p>
+      </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project</p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2025 Kwame Tari Omonibo | Currency Recognition System Project
+      </p>
+    </footer>
 
-  <script src="script.js"></script>
-  <script src="ticker.js"></script>
-</body>
+    <!-- Scripts -->
+    <script src="ticker.js"></script>
+    <script>
+      // Dark Mode toggle
+      function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+        const icon = document.getElementById("theme-icon");
+        icon.textContent = document.body.classList.contains("dark-mode")
+          ? "☀️"
+          : "🌙";
+      }
+    </script>
+  </body>
 </html>

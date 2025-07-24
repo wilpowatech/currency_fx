@@ -8,7 +8,7 @@ async function loadCurrencyTicker() {
     ["EUR", "NGN"],
     ["USD", "EUR"],
     ["USD", "AUD"],
-    ["USD", "INR"]
+    ["USD", "INR"],
   ];
 
   const results = await Promise.all(
@@ -33,7 +33,9 @@ async function loadCurrencyTicker() {
 
         previousRates[key] = rate;
 
-        return `<span class="pair">${from}/${to}: ${rate.toFixed(2)}${trend}</span>`;
+        return `<span class="pair">${from}/${to}: ${rate.toFixed(
+          2
+        )}${trend}</span>`;
       } catch (err) {
         console.error(`Error fetching ${from}/${to}:`, err);
         return `<span class="pair">${from}/${to}: N/A</span>`;
