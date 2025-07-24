@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f2f5;
   color: #222;
   transition: background-color 0.3s, color 0.3s;
@@ -92,13 +92,16 @@ body.dark-mode .theme-toggle-btn span {
 .page-hero {
   background: url("assets/currency-bg.png") no-repeat center center;
   background-size: cover;
-  padding-top: 100px;
-  padding-bottom: 60px;
+  min-height: calc(
+    100vh - 80px - 40px
+  ); /* Full height minus navbar and footer */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   flex-direction: column;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
 }
 
 .page-hero-content {
@@ -140,8 +143,13 @@ body.dark-mode .theme-toggle-btn span {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* Exchange Rate Table */
@@ -161,7 +169,8 @@ body.dark-mode .theme-toggle-btn span {
   color: #ffcc00;
 }
 
-.page-hero-content th, .page-hero-content td {
+.page-hero-content th,
+.page-hero-content td {
   padding: 12px;
   text-align: center;
 }

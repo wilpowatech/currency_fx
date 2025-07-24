@@ -1,41 +1,58 @@
-// rateTable.js — Load exchange rate table for USD, GBP, EUR against NGN
+// rateTable.js
 
-async function loadExchangeTable() {
-  const fxTable = document.getElementById("fx-table");
-  if (!fxTable) return;
+document.addEventListener("DOMContentLoaded", async () => {
+  const currencies = ["USD", "GBP", "EUR"];
+  const base = "NGN"; // Show everything against Naira
+  const tableBody = document.getElementById("rate-table-body");
 
-  try {
-    const currencies = ["USD", "GBP", "EUR"];
-    const today = new Date().toISOString().split("T")[0];
-    let html = `<tr><td>${today}</td>`;
+  const flags = {
+    USD: "🇺🇸",
+    GBP: "🇬🇧",
+    EUR: "🇪🇺",
+  };
 
-    for (const currency of currencies) {
-      const url = `https://api.exchangerate.host/latest?base=${currency}&symbols=NGN`;
-      const response = await fetch(url);
-      const data = await response.json();
+  const today = new Date();
+  const getFormattedDate = (date) => date.toISOString().split("T")[0];
 
-      const rate = data?.rates?.NGN;
-      if (!rate) throw new Error(`Rate for ${currency} to NGN not available`);
+  const fetchRateForDate = async (dateStr) => {
+    const url = `https://open.er-api.com/v6/latest/${base}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-      const sell = rate.toFixed(2);
-      const buy = (rate * 0.98).toFixed(2); // Buying at 2% margin
+      if (data.result !== "success") throw new Error("API Error");
 
-      html += `
-        <td>
-          <span style="color: green; font-weight: bold;">Buy: ${buy}</span><br/>
-          <span style="color: red; font-weight: bold;">Sell: ${sell}</span>
-        </td>`;
+      return currencies.map((cur) => ({
+        currency: cur,
+        rate: (1 / data.rates[cur]).toFixed(2), // NGN to cur
+      }));
+    } catch (err) {
+      console.error("Rate Table Error:", err);
+      throw new Error("Failed to fetch rate history");
     }
+  };
 
-    html += "</tr>";
-    fxTable.innerHTML = html;
-  } catch (error) {
-    console.error("FX Error:", error);
-    fxTable.innerHTML = `
-      <tr><td colspan="4" style="color: red; font-weight: bold;">
-        Error fetching exchange rates.<br/>${error.message}
-      </td></tr>`;
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    const dateStr = getFormattedDate(date);
+
+    try {
+      const rates = await fetchRateForDate(dateStr);
+
+      const row = document.createElement("tr");
+      row.innerHTML =
+        `<td><strong>${dateStr}</strong></td>` +
+        rates
+          .map((r) => `<td>${r.rate} ${flags[r.currency]} ${r.currency}</td>`)
+          .join("");
+      tableBody.appendChild(row);
+    } catch (err) {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td colspan="${
+        currencies.length + 1
+      }">Failed to load data for ${dateStr}</td>`;
+      tableBody.appendChild(row);
+    }
   }
-}
-
-document.addEventListener("DOMContentLoaded", loadExchangeTable);
+});

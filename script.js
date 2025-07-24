@@ -37,6 +37,11 @@ async function convertCurrency() {
     const converted = amount * rate;
     const resultBox = document.getElementById("result");
     resultBox.textContent = `${amount} ${from} = ${converted.toFixed(2)} ${to}`;
+
+    // Make result glow green
+    resultBox.style.color = "#00ff00"; // bright green text
+    resultBox.style.fontWeight = "bold";
+    resultBox.style.textShadow = "0 0 10px #00ff00"; // glowing effect
   } catch (error) {
     console.error("Conversion Error:", error);
     alert(`Conversion Error: ${error.message}`);
