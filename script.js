@@ -47,3 +47,38 @@ async function convertCurrency() {
     alert(`Conversion Error: ${error.message}`);
   }
 }
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  const icon = document.getElementById("theme-icon");
+  if (document.body.classList.contains("dark-mode")) {
+    icon.textContent = "☀️";
+    localStorage.setItem("theme", "dark");
+  } else {
+    icon.textContent = "🌙";
+    localStorage.setItem("theme", "light");
+  }
+}
+
+// Auto-load theme on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    const icon = document.getElementById("theme-icon");
+    if (icon) icon.textContent = "☀️";
+  }
+});
+function swapCurrencies() {
+  const fromSelect = document.getElementById("from");
+  const toSelect = document.getElementById("to");
+  const resultDiv = document.getElementById("result"); // Make sure this exists in your HTML
+
+  // Swap values
+  const temp = fromSelect.value;
+  fromSelect.value = toSelect.value;
+  toSelect.value = temp;
+
+  // Trigger conversion again (optional)
+  convertCurrency();
+}
